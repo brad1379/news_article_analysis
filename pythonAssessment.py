@@ -1,8 +1,4 @@
-import re 
-
-# Open the file and read it into the article variable
-with open("News Article for Python Assessment.txt", "r", encoding="utf-8") as file:
-    article = file.read()
+import re
 
 
 def count_specific_word(search_string, search_word):
@@ -10,9 +6,18 @@ def count_specific_word(search_string, search_word):
     if search_word == "":
         return 0
     else:
-        words = re.findall(search_word.lower(), search_string.lower())
-    
-    return len(words)
+        search_string = search_string.lower()
+        search_word = search_word.lower()
+        count = 0
+        start = 0
+        while True:
+            index = search_string.find(search_word, start)
+            if index == -1:
+                break
+            count += 1
+            start = index + 1
+     
+    return count
 
 
 def identify_most_common_word(str):
@@ -36,7 +41,7 @@ def identify_most_common_word(str):
         word_list = [(value, key) for (key, value) in article_words.items()]
         sorted_word_list = sorted(word_list, reverse=True)
         most_common_word = sorted_word_list[0]
-        return most_common_word[1], most_common_word[0]
+        return most_common_word[1]
 
 
 def calculate_average_word_length(str):
@@ -58,11 +63,11 @@ def calculate_average_word_length(str):
 
         word_sum = 0
         word_length_list = []
-        for word in article_words.keys():
+        for word in words:
             word_sum += len(word)
             word_length_list.append(len(word))
 
-        word_length_average = word_sum // len(word_length_list)
+        word_length_average = word_sum / len(word_length_list)
     
         return word_length_average
 
@@ -82,21 +87,30 @@ def count_sentences(str):
         return 1
     else:
         pattern = re.compile(r'[^.!?]+(?:[.!?]+|$)')
-        sentences = re.findall(pattern, article)
+        sentences = re.findall(pattern, str)
         return len(sentences)
 
-# Edge cases
-print("Edge cases:")
-print(f"The count of the specific word is {count_specific_word(article, "zoo")}")
-print(f"Empty string for most common word count {identify_most_common_word("")}")
-print(f"Empty average word length {calculate_average_word_length("")}")
-print(f"Empty count paragraphs {count_paragraphs("")}")
-print(f"Empty count sentences {count_sentences("")}")
-print("\n")
-print("Correct cases:")
-print(f"The count of the specific word is {count_specific_word(article, "apple")}")
-most_common_word, most_common_word_count = identify_most_common_word(article)
-print(f"The most common word is '{most_common_word}' with {most_common_word_count} occurences.")
-print(f"The average word length is {calculate_average_word_length(article)}")
-print(f"There are {count_paragraphs(article)} paragraphs.")
-print(f"There are {count_sentences(article)} sentences.")
+if __name__ == "__main__":
+    # Open the file and read it into the article variable
+    with open("News Article for Python Assessment.txt", "r", encoding="utf-8") as file:
+        article = file.read()
+
+    # Edge cases
+    print("Edge cases:")
+
+    print(f"The count of the specific word is {count_specific_word(article, 'zoo')}")
+    print(f"Empty string for most common word count {identify_most_common_word('')}")
+    print(f"Empty average word length {calculate_average_word_length('')}")
+    print(f"Empty count paragraphs {count_paragraphs('')}")
+    print(f"Empty count sentences {count_sentences('')}")
+
+    print("\n")
+
+    # "Correct" cases
+    print("Correct cases:")
+    print(f"The count of the specific word is {count_specific_word(article, 'apple')}")
+    most_common_word = identify_most_common_word(article)
+    print(f"The most common word is '{most_common_word}'.")
+    print(f"The average word length is {calculate_average_word_length(article)}")
+    print(f"There are {count_paragraphs(article)} paragraphs.")
+    print(f"There are {count_sentences(article)} sentences.")

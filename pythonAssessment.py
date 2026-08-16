@@ -100,7 +100,7 @@ if __name__ == "__main__":
     print("Edge cases:")
 
     print(f"The count of the specific word is {count_specific_word(article, 'zoo')}")
-    print(f"Empty string for most common word count {identify_most_common_word('')}")
+    print(f"Empty string for most common word {identify_most_common_word('')}")
     print(f"Empty average word length {calculate_average_word_length('')}")
     print(f"Empty count paragraphs {count_paragraphs('')}")
     print(f"Empty count sentences {count_sentences('')}")

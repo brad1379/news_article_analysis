@@ -1,4 +1,4 @@
-import re
+import re # import regex module 
 
 
 def count_specific_word(search_string, search_word):
@@ -10,9 +10,10 @@ def count_specific_word(search_string, search_word):
         search_word = search_word.lower()
         count = 0
         start = 0
+        # Search through the search_string and count occurences of search_word
         while True:
             index = search_string.find(search_word, start)
-            if index == -1:
+            if index == -1: # break loop of at end of search_string
                 break
             count += 1
             start = index + 1
@@ -95,7 +96,7 @@ if __name__ == "__main__":
     with open("News Article for Python Assessment.txt", "r", encoding="utf-8") as file:
         article = file.read()
 
-    # Edge cases
+    # Edge cases of empty strings or words that don't occur in text
     print("Edge cases:")
 
     print(f"The count of the specific word is {count_specific_word(article, 'zoo')}")
